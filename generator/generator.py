@@ -18,7 +18,8 @@ def generated_person():
         salary=random.randint(10000, 100000),
         email=faker_ru.email(),
         current_address=faker_ru.address(),
-        permanent_address=faker_ru.address()
+        permanent_address=faker_ru.address(),
+        mobile=faker_ru.msisdn(),
     )
 
 
@@ -39,6 +40,7 @@ def generated_file():
     file.close()
     return file.name, path
 
+
 # надежнее использовать контекстный менеджер with с функцией open()
 # def generated_file():
 #     path = rf"C:\python_projects\pet_project_aqa\filetest{random.randint(0, 777)}.txt"
@@ -46,3 +48,23 @@ def generated_file():
 #         my_file.write(f"Hello world{random.randint(0, 777)}")
 #
 #     return my_file.name, path
+
+
+def generated_subject():
+    subject_list = [
+        "Hindi",
+        "English",
+        "Maths",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Computer Science",
+        "Commerce",
+        "Accounting",
+        "Economics",
+        "Arts",
+        "Social Studies",
+        "History",
+        "Civics"
+    ]
+    return subject_list[random.randint(0, 12)]
