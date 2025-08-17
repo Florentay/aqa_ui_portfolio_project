@@ -1,7 +1,7 @@
 import random
 import time
 from selenium.common import UnexpectedAlertPresentException
-from locators.alert_frame_windows_locators import BrowserWindowsPageLocators, AlertsPageLocators
+from locators.alert_frame_windows_locators import BrowserWindowsPageLocators, AlertsPageLocators, FramesPageLocators
 from pages.base_page import BasePage
 
 
@@ -45,12 +45,11 @@ class AlertsPage(BasePage):
             alert_window = self.driver.switch_to.alert
             return alert_window.text
 
-
     def check_confirm_alert(self):
         self.element_is_visible(self.locators.CONFIRM_BOX_ALERT_BUTTON).click()
         alert_window = self.driver.switch_to.alert
         alert_window.accept()
-        text_result =  self.element_is_present(self.locators.CONFIRM_RESULT).text
+        text_result = self.element_is_present(self.locators.CONFIRM_RESULT).text
         return text_result
 
     def check_promt_alert(self):
@@ -59,5 +58,33 @@ class AlertsPage(BasePage):
         alert_window = self.driver.switch_to.alert
         alert_window.send_keys(text)
         alert_window.accept()
-        text_result =  self.element_is_present(self.locators.PROMT_RESULT).text
+        text_result = self.element_is_present(self.locators.PROMT_RESULT).text
         return text, text_result
+
+
+class FramesPage(BasePage):
+    locators = FramesPageLocators()
+
+    def check_frame(self, frame_num):
+
+        if frame_num == 'frame1':
+            frame = self.element_is_present(self.locators.FIRST_FRAME)
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
+            # print(width)
+            # print(height)
+            self.driver.switch_to.frame(frame)
+            text = self.element_is_present(self.locators.TITLE_FRAME).text
+            self.driver.switch_to.default_content()
+            return [text, width, height]
+
+        if frame_num == 'frame2':
+            frame = self.element_is_present(self.locators.SECOND_FRAME)
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
+            # print(width)
+            # print(height)
+            self.driver.switch_to.frame(frame)
+            text = self.element_is_present(self.locators.TITLE_FRAME).text
+            self.driver.switch_to.default_content()
+            return [text, width, height]
