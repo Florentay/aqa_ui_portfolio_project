@@ -1,5 +1,6 @@
 import time
-from pages.alert_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage
+from pages.alert_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage, \
+    ModalDialogsPage
 
 
 class TestAlertsFrameWindow:
@@ -21,7 +22,7 @@ class TestAlertsFrameWindow:
     class TestAlerts:
 
         def test_see_alert(self, driver):
-            alert_page = AlertsPage(driver, 'https://d emoqa.com/alerts')
+            alert_page = AlertsPage(driver, 'https://demoqa.com/alerts')
             alert_page.open()
             alert_text = alert_page.check_see_alert()
             assert alert_text == 'You clicked a button', 'alert did not show up'
@@ -69,3 +70,17 @@ class TestAlertsFrameWindow:
             parent_text, child_text = nested_frame_page.check_nested_frame()
             assert parent_text == 'Parent frame', 'Nested frame does not exist'
             assert child_text == 'Child Iframe', 'Nested frame does not exist'
+
+
+
+    class TestModalDialogsPage:
+
+        def test_modal_dialogs(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver, 'https://demoqa.com/modal-dialogs')
+            modal_dialogs_page.open()
+            small, large = modal_dialogs_page.check_modal_dialogs()
+            # print(small)
+            # print(large)
+            assert small[1] < large[1], 'text from large dialogs is less than text from small dialogs'
+            assert small[0] == 'Small Modal', 'the header is not "Small modal"'
+            assert large[0] == 'Large Modal', 'the header is not "Large modal"'
