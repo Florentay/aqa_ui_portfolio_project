@@ -14,6 +14,7 @@ class BasePage:
         self.driver.get(self.url)
 
     def element_is_visible(self, locator, timeout=50):
+        self.go_to_element(self.element_is_present(locator))
         # Явное ожидание: ждем, пока элемент станет видимым на странице
         return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
 
