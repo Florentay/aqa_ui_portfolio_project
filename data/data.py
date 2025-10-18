@@ -14,4 +14,8 @@ class Person:
     permanent_address: str = None
     mobile: str = None
 
-# 💡 @dataclass автоматически создает __init__, __repr__, и другие методы. Это удобно для хранения тестовых данных.
+# 💡 @dataclass автоматически создает __init__, __repr__, и другие методы. Это удобно для хранения тестовых данных
+
+@dataclass
+class Color:
+    color_name: list = None

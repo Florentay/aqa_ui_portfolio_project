@@ -1,7 +1,7 @@
 import os
 import random
 
-from data.data import Person
+from data.data import Person, Color
 from faker import Faker
 
 # Создаем объект Faker с русской локализацией
@@ -9,6 +9,8 @@ faker_ru = Faker('ru_RU')
 
 # Устанавливаем сид для повторяемости данных (опционально)
 Faker.seed()
+
+
 # Faker.seed(123)
 
 
@@ -67,3 +69,9 @@ def generated_subject():
 
     # return subject_list[random.randint(0, 12)]
     return random.choice(subject_list)
+
+
+def generated_color():
+    yield Color(
+        color_name=["Red", "Blue", "Green", "Yellow", "Purple", "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"]
+    )
