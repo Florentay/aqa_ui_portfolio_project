@@ -1,6 +1,7 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 
 
 class BasePage:
@@ -42,6 +43,11 @@ class BasePage:
         # Скроллим к элементу, чтобы он попал в зону видимости
         self.driver.execute_script("arguments[0].scrollIntoView()", element)
 
+    def move_to_element(self, element):
+        # Навести курсор мыши на элемент / проскролить (может быть нужно, чтобы появился выпадающий список или тултип)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+
     def action_double_click(self, element):
         # Двойной клик по элементу (через ActionChains)
         action = ActionChains(self.driver)
@@ -58,3 +64,16 @@ class BasePage:
         # Удаляем footer и рекламу (может мешать кликам)
         self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
         self.driver.execute_script("document.getElementById('close-fixedban').remove();")
+
+
+    def select_date_by_text(self, element, value):
+        select = Select(self.element_is_present(element))
+        select.select_by_visible_text(value)
+
+
+    def select_date_item_from_list(self, elements, value):
+        item_list = self.elements_are_present(elements)
+        for item in item_list:
+            if item.text == value:
+                item.click()
+                break

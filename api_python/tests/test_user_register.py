@@ -1,6 +1,6 @@
 from datetime import datetime
 
-# import requests
+import allure
 from api_python.api_methods.base_case import BaseCase
 from api_python.api_methods.assertions import Assertions
 from api_python.api_methods.my_requests import MyRequests
@@ -13,6 +13,7 @@ class TestUserRegister(BaseCase):
     #     random_part = datetime.now().strftime("%d%m%Y%H%M%S")
     #     self.email = f'{base_part}{random_part}@{domain}'
 
+    @allure.title("Успешная регистрация")
     def test_create_user_successfully(self):
         data = self.prepare_registration_data()
         # data = {
